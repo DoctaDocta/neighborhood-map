@@ -1,9 +1,13 @@
+var interestingLocations = [
+	{
+		Fair Haven, NJ: {lat: 40.3619, lng: -74.0388},
+		SeaBright, NJ: {lat:40.3589 , lng: 73.9743}
+	}
+];
+
 function MyViewModel() {
     var self = this;
-    self.mapOne = ko.observable({
-        lat: ko.observable(12.24),
-        lng:ko.observable(24.54)
-    });
+    self.markerArray = ko.observableArray([]);
 
     self.mapTwo = ko.observable({
         lat: ko.observable(40.76),
@@ -11,6 +15,14 @@ function MyViewModel() {
     });
 }
 
+
+
+var viewModel = new MyViewModel();
+   ko.applyBindings(viewModel);
+
+
+
+/*
 ko.bindingHandlers.map = {
             init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
                 var mapObj = ko.utils.unwrapObservable(valueAccessor());
@@ -51,8 +63,4 @@ ko.bindingHandlers.map = {
                 $("#" + element.getAttribute("id")).data("mapObj",mapObj);
             }
         };
-
-
-var viewModel = new MyViewModel();
-   ko.applyBindings(viewModel);
-
+*/
