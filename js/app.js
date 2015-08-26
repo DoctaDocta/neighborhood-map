@@ -1,13 +1,46 @@
 var interestingLocations = [
 	{
-		Fair Haven, NJ: {lat: 40.3619, lng: -74.0388},
-		SeaBright, NJ: {lat:40.3589 , lng: 73.9743}
+		name: "Fair Haven, NJ",
+		position: {lat: 40.3619, lng: -74.0388}
+	},
+	{
+		name: "SeaBright, NJ",
+		position: {lat: 40.3589, lng: -73.9743}
 	}
 ];
 
+var marker = function(data) {
+	var newMarker = new google.maps.Marker({});
+	newMarker.name = ko.observable(data.name);
+	newMarker.position = ko.observable(data.position);
+}
+
 function MyViewModel() {
     var self = this;
-    self.markerArray = ko.observableArray([]);
+    self.map;
+  	self.markerArray = ko.observableArray([]);
+
+  	interestingLocations.forEach(function(data) {
+  		var newMarker = new marker(data);
+  		self.markerArray.push(newMarker);
+  		console.log("added marker to array");
+  	});
+
+	self.initMap = function() {
+		self.map = new google.maps.Map(document.getElementById('map'), {
+	    	center: {lat: 40.3619, lng: -74.0388},
+	    	zoom: 12,
+	    	mapTypeId: google.maps.MapTypeId.HYBRID
+	  	});
+		self.marker = new google.maps.Marker({
+	    	position: {lat: 40.3619, lng: -74.0388},
+	    	map: map,
+	    	title: 'Hello World!'
+		});
+	}
+
+
+
 
     self.mapTwo = ko.observable({
         lat: ko.observable(40.76),
@@ -18,7 +51,8 @@ function MyViewModel() {
 
 
 var viewModel = new MyViewModel();
-   ko.applyBindings(viewModel);
+
+ko.applyBindings(viewModel);
 
 
 
